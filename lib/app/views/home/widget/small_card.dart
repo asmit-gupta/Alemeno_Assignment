@@ -31,7 +31,7 @@ class _SmallCardState extends State<SmallCard> {
       padding: EdgeInsets.only(
         right: 2.0.wp,
         left: 2.0.wp,
-        bottom: 2.0.wp,
+        bottom: 0.0.wp,
       ),
       child: Container(
         width: cardWidth / 1.9,
@@ -60,7 +60,7 @@ class _SmallCardState extends State<SmallCard> {
                   ),
                 ),
               ),
-              height: 5.5.hp,
+              height: 5.0.hp,
               width: double.infinity,
               child: Center(
                 child: Text(

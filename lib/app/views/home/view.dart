@@ -144,7 +144,7 @@ class HomePage extends StatelessWidget {
                 height: 1.0.hp,
               ),
               GridView.count(
-                mainAxisSpacing: 4.0.sp,
+                mainAxisSpacing: 5.5.sp,
                 crossAxisCount: 2,
                 childAspectRatio: (itemWidth / itemHeight),
                 scrollDirection: Axis.vertical,

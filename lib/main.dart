@@ -33,3 +33,9 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+/*
+I have implemented some get snackbar in dummy buttons like when there is not product in the cart,
+when date is not selected, etc. only to show information. We could have left it totally non-functional too.
+Notifications are also shown after the checkout for the purchase.
+*/

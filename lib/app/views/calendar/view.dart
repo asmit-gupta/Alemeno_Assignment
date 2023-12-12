@@ -198,7 +198,7 @@ class _CalendarPageState extends State<CalendarPage> {
             borderRadius: BorderRadius.circular(8.0),
           ),
           width: 90.0.wp,
-          height: 45.0.hp,
+          height: 48.0.hp,
           child: TableCalendar(
             headerStyle: const HeaderStyle(
               titleCentered: true,

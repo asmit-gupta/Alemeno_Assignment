@@ -29,7 +29,7 @@ class TestItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                height: 2.0.wp,
+                height: 1.5.wp,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -102,7 +102,7 @@ class TestItem extends StatelessWidget {
                 borderWidth: 1.5,
                 text: "Upload prescription (optional)",
                 height: 4.5.hp,
-                width: 65.0.wp,
+                width: 68.0.wp,
                 radius: 20,
               ),
               const Divider(
