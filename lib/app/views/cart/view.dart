@@ -7,6 +7,7 @@ import 'package:alemeno_app/app/views/success/view.dart';
 import 'package:alemeno_app/app/views/widgets/button.dart';
 import 'package:alemeno_app/core/extensions/responsive.dart';
 import 'package:alemeno_app/core/themes/colors.dart';
+import 'package:alemeno_app/core/utils/list_to_string.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -80,6 +81,12 @@ class CartPage extends StatelessWidget {
                         (controller.date.value != '' &&
                             controller.time.value != '')
                     ? () {
+                        final List testNames = controller.cartList
+                            .map((test) => test.title)
+                            .toList();
+                        final String tests = listToString(testNames);
+                        controller.sendNotification('Purchase Successful',
+                            'Thank you for purchasing $tests');
                         Get.to(() => SuccessPage());
                       }
                     : controller.cartList.length == 0

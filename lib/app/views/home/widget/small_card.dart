@@ -170,7 +170,7 @@ class _SmallCardState extends State<SmallCard> {
 
                       Future.delayed(
                         const Duration(
-                          seconds: 1,
+                          milliseconds: 600,
                         ),
                         () {
                           setState(() {

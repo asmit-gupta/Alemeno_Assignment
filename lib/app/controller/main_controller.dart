@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:get/get.dart';
 import '../model/test_item_model.dart';
@@ -92,10 +94,12 @@ class LabTestController extends GetxController {
 
     AwesomeNotifications().createNotification(
       content: NotificationContent(
-        id: 1,
+        id: Random().nextInt(1000),
         channelKey: 'alemeno',
         title: title,
         body: body,
+        displayOnForeground: true,
+        fullScreenIntent: true,
       ),
     );
   }
