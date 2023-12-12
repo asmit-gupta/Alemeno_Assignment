@@ -1,6 +1,8 @@
+import 'package:alemeno_app/app/controller/main_controller.dart';
 import 'package:alemeno_app/core/extensions/responsive.dart';
 import 'package:alemeno_app/core/themes/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class HardReport extends StatefulWidget {
   const HardReport({Key? key});
@@ -10,7 +12,7 @@ class HardReport extends StatefulWidget {
 }
 
 class _HardReportState extends State<HardReport> {
-  bool isChecked = false;
+  final controller = Get.find<LabTestController>();
   @override
   Widget build(BuildContext context) {
     return UnconstrainedBox(
@@ -28,22 +30,24 @@ class _HardReportState extends State<HardReport> {
           children: [
             Row(
               children: [
-                IconButton(
-                  onPressed: () {
-                    setState(() {
-                      isChecked = !isChecked;
-                    });
-                  },
-                  icon: isChecked
-                      ? const Icon(
-                          Icons.check_circle_rounded,
-                          size: 20,
-                          color: darkBlue,
-                        )
-                      : const Icon(
-                          Icons.circle_outlined,
-                          size: 20,
-                        ),
+                Obx(
+                  () => IconButton(
+                    onPressed: () {
+                      setState(() {
+                        controller.hardCopy.value = !controller.hardCopy.value;
+                      });
+                    },
+                    icon: controller.hardCopy.value
+                        ? const Icon(
+                            Icons.check_circle_rounded,
+                            size: 20,
+                            color: darkBlue,
+                          )
+                        : const Icon(
+                            Icons.circle_outlined,
+                            size: 20,
+                          ),
+                  ),
                 ),
                 Text(
                   'Hard copy of reports',

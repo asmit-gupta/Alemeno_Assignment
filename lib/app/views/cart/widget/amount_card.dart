@@ -22,82 +22,84 @@ class AmountCard extends StatelessWidget {
             color: Colors.grey,
           ),
         ),
-        child: Column(
-          children: [
-            SizedBox(
-              height: 2.5.hp,
-            ),
-            AmountLine(
-              title: 'M.R.P Total',
-              number: '400',
-              color: Colors.grey.shade700,
-            ),
-            SizedBox(
-              height: 0.9.hp,
-            ),
-            AmountLine(
-              title: 'Discount',
-              number: '400',
-              color: Colors.grey.shade700,
-            ),
-            SizedBox(
-              height: 4.0.hp,
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 26.0.sp),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Amount to be paid',
-                    style: TextStyle(
-                      color: darkBlue,
-                      fontSize: 13.0.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    '\$ 1000/-',
-                    style: TextStyle(
-                      color: darkBlue,
-                      fontSize: 13.0.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
+        child: Obx(
+          () => Column(
+            children: [
+              SizedBox(
+                height: 2.5.hp,
               ),
-            ),
-            SizedBox(
-              height: 3.0.hp,
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: 26.0.sp,
+              AmountLine(
+                title: 'M.R.P Total',
+                number: controller.calculateTotalMRP(),
+                color: Colors.grey.shade700,
               ),
-              child: Row(
-                children: [
-                  Text(
-                    'Total savings',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 11.0.sp,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 16.0.sp,
-                  ),
-                  Text(
-                    '\$ 400/-',
-                    style: TextStyle(
-                      color: darkBlue,
-                      fontSize: 13.0.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
+              SizedBox(
+                height: 0.9.hp,
               ),
-            ),
-          ],
+              AmountLine(
+                title: 'Discount',
+                number: controller.calculateDiscount(),
+                color: Colors.grey.shade700,
+              ),
+              SizedBox(
+                height: 4.0.hp,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 26.0.sp),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Amount to be paid',
+                      style: TextStyle(
+                        color: darkBlue,
+                        fontSize: 13.0.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      '\₹ ${controller.calculateTotalAmount()}/-',
+                      style: TextStyle(
+                        color: darkBlue,
+                        fontSize: 13.0.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 3.0.hp,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 26.0.sp,
+                ),
+                child: Row(
+                  children: [
+                    Text(
+                      'Total savings',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 11.0.sp,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 16.0.sp,
+                    ),
+                    Text(
+                      '₹ ${controller.calculateDiscount()}/-',
+                      style: TextStyle(
+                        color: darkBlue,
+                        fontSize: 13.0.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

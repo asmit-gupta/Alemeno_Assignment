@@ -8,19 +8,24 @@ import 'package:alemeno_app/core/utils/consts.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class SmallCard extends StatelessWidget {
-  final LabTestController controller = Get.find<LabTestController>();
+class SmallCard extends StatefulWidget {
   final LabTestModel labTest;
 
   SmallCard({Key? key, required this.labTest}) : super(key: key);
 
   @override
+  State<SmallCard> createState() => _SmallCardState();
+}
+
+class _SmallCardState extends State<SmallCard> {
+  final LabTestController controller = Get.find<LabTestController>();
+
+  bool isAddingToCart = false;
+
+  @override
   Widget build(BuildContext context) {
     var cardWidth = Get.width - 12.0.wp;
     var cardHeight = Get.height - 40.0.hp;
-
-    // Check if the labTest is in the cart
-    bool isInCart = controller.cartList.contains(labTest);
 
     return Padding(
       padding: EdgeInsets.only(
@@ -59,7 +64,7 @@ class SmallCard extends StatelessWidget {
               width: double.infinity,
               child: Center(
                 child: Text(
-                  labTest.title,
+                  widget.labTest.title,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 12.0.sp,
@@ -77,7 +82,7 @@ class SmallCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Includes ${labTest.tests} tests',
+                    'Includes ${widget.labTest.tests} tests',
                     style: TextStyle(
                       color: Colors.grey.shade600,
                       fontSize: 12.0.sp,
@@ -102,7 +107,7 @@ class SmallCard extends StatelessWidget {
                 horizontal: 1.0.wp,
               ),
               child: Text(
-                'Get reports in ${labTest.hours} hours',
+                'Get reports in ${widget.labTest.hours} hours',
                 style: TextStyle(
                   color: Colors.grey.shade600,
                   fontSize: 10.0.sp,
@@ -125,7 +130,7 @@ class SmallCard extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    labTest.amount.toString(),
+                    widget.labTest.amount.toString(),
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: darkBlue,
@@ -136,7 +141,7 @@ class SmallCard extends StatelessWidget {
                     width: 4.0.wp,
                   ),
                   Text(
-                    labTest.costPrice.toString(),
+                    widget.labTest.costPrice.toString(),
                     style: TextStyle(
                       color: Colors.grey.shade700,
                       fontSize: 10.0.sp,
@@ -154,14 +159,37 @@ class SmallCard extends StatelessWidget {
               child: Obx(
                 () => Button(
                   onTap: () {
-                    controller.addItemInCart(labTest);
-                    print(controller.cartList.length);
+                    if (!controller.cartList.contains(widget.labTest) &&
+                        !isAddingToCart) {
+                      setState(() {
+                        isAddingToCart = true;
+                      });
+
+                      controller.addItemInCart(widget.labTest);
+                      print(controller.cartList.length);
+
+                      Future.delayed(
+                        const Duration(
+                          seconds: 1,
+                        ),
+                        () {
+                          setState(() {
+                            isAddingToCart = false;
+                          });
+                        },
+                      );
+                    }
                   },
-                  color:
-                      controller.cartList.contains(labTest) ? money : darkBlue,
-                  text: controller.cartList.contains(labTest)
-                      ? 'Added to cart'
-                      : 'Add to cart',
+                  color: isAddingToCart
+                      ? Colors.grey
+                      : controller.cartList.contains(widget.labTest)
+                          ? money
+                          : darkBlue,
+                  text: isAddingToCart
+                      ? 'Adding to cart'
+                      : controller.cartList.contains(widget.labTest)
+                          ? 'Added to cart'
+                          : 'Add to cart',
                   height: 5.0.hp,
                   width: 38.0.wp,
                 ),

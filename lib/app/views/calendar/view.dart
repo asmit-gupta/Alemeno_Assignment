@@ -29,8 +29,11 @@ class _CalendarPageState extends State<CalendarPage> {
   String? selectedTime;
 
   _CalendarPageState() {
-    _currentDay = null;
-    _focusDay = DateTime.now();
+    _currentDay = calendarController.currentday.value;
+    _focusDay = calendarController.focusday.value;
+    if (calendarController.calendarIndex.value != 20) {
+      _currentIndex = calendarController.calendarIndex.value;
+    }
   }
 
   @override
@@ -86,6 +89,11 @@ class _CalendarPageState extends State<CalendarPage> {
                       : 'Confirm',
               height: 7.0.hp,
               width: 90.0.wp,
+              onTap: _timeSelected == true && _dateSelected == true
+                  ? () {
+                      Navigator.of(context).pop();
+                    }
+                  : null,
             ),
           ),
         ),
@@ -142,6 +150,7 @@ class _CalendarPageState extends State<CalendarPage> {
                     setState(() {
                       _timeSelected = true;
                       _currentIndex = index;
+                      calendarController.calendarIndex.value = index;
                       selectedTime =
                           '${(index + 8) % 12 == 0 ? 12 : (index + 8) % 12}:00 ${(index + 8) >= 12 ? "PM" : "AM"}';
                       calendarController.time.value = formatTime(selectedTime!);
@@ -224,6 +233,8 @@ class _CalendarPageState extends State<CalendarPage> {
             },
             onDaySelected: (selectedDay, focusedDay) {
               setState(() {
+                calendarController.currentday.value = selectedDay;
+                calendarController.focusday.value = focusedDay;
                 _currentDay = selectedDay;
                 _focusDay = focusedDay;
                 _dateSelected = true;

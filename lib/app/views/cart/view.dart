@@ -3,6 +3,7 @@ import 'package:alemeno_app/app/views/cart/widget/amount_card.dart';
 import 'package:alemeno_app/app/views/cart/widget/hard_report.dart';
 import 'package:alemeno_app/app/views/cart/widget/schedule_card.dart';
 import 'package:alemeno_app/app/views/cart/widget/test_review_card.dart';
+import 'package:alemeno_app/app/views/success/view.dart';
 import 'package:alemeno_app/app/views/widgets/button.dart';
 import 'package:alemeno_app/core/extensions/responsive.dart';
 import 'package:alemeno_app/core/themes/colors.dart';
@@ -30,6 +31,15 @@ class CartPage extends StatelessWidget {
             fontSize: 18.0.sp,
           ),
         ),
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+            onPressed: () {
+              controller.hardCopy.value = false;
+              controller.date.value = '';
+              controller.time.value = '';
+              Navigator.pop(context);
+            },
+            icon: const Icon(Icons.arrow_back)),
         actions: [
           PopupMenuButton(
             color: Colors.blue,
@@ -56,11 +66,40 @@ class CartPage extends StatelessWidget {
           width: double.infinity,
           color: backgroundColor,
           child: UnconstrainedBox(
-            child: Button(
-              color: Colors.grey,
-              text: 'Schedule',
-              height: 7.0.hp,
-              width: 90.0.wp,
+            child: Obx(
+              () => Button(
+                color: controller.cartList.length > 0 &&
+                        (controller.date.value != '' &&
+                            controller.time.value != '')
+                    ? darkBlue
+                    : Colors.grey,
+                text: 'Schedule',
+                height: 7.0.hp,
+                width: 90.0.wp,
+                onTap: controller.cartList.length > 0 &&
+                        (controller.date.value != '' &&
+                            controller.time.value != '')
+                    ? () {
+                        Get.to(() => SuccessPage());
+                      }
+                    : controller.cartList.length == 0
+                        ? () {
+                            Get.snackbar(
+                              'Cart empty',
+                              'Add some test to checkout',
+                              backgroundColor: lightBlue,
+                              colorText: Colors.white,
+                            );
+                          }
+                        : () {
+                            Get.snackbar(
+                              'Date not specified',
+                              'Schedule your appointment',
+                              backgroundColor: lightBlue,
+                              colorText: Colors.white,
+                            );
+                          },
+              ),
             ),
           ),
         ),

@@ -1,3 +1,4 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:get/get.dart';
 import '../model/test_item_model.dart';
 
@@ -36,6 +37,12 @@ class LabTestController extends GetxController {
   RxList cartList = [].obs;
   RxString date = ''.obs;
   RxString time = ''.obs;
+  var currentday = DateTime.now().obs;
+  var focusday = DateTime.now().obs;
+  RxInt calendarIndex = 20
+      .obs; //chose a random number greater than 12, so that it doesn't effect grid timeline.
+
+  RxBool hardCopy = false.obs;
 
   void addItemInCart(LabTestModel labTestModel) {
     if (!cartList.contains(labTestModel)) {
@@ -49,5 +56,57 @@ class LabTestController extends GetxController {
   void removeItemFromCart(LabTestModel labTestModel) {
     cartList.remove(labTestModel);
     cartList.refresh();
+  }
+
+  String calculateTotalMRP() {
+    int totalMRP = cartList.cast<LabTestModel>().fold<int>(
+          0,
+          (int previousValue, LabTestModel labTest) =>
+              previousValue + labTest.costPrice,
+        );
+    return totalMRP.toString();
+  }
+
+  String calculateTotalAmount() {
+    int totalMRP = cartList.cast<LabTestModel>().fold<int>(
+          0,
+          (int previousValue, LabTestModel labTest) =>
+              previousValue + labTest.amount,
+        );
+    return totalMRP.toString();
+  }
+
+  String calculateDiscount() {
+    int totalMRP = int.parse(calculateTotalMRP());
+    int totalAmount = int.parse(calculateTotalAmount());
+    int discount = totalMRP - totalAmount;
+    return discount.toString();
+  }
+
+  void sendNotification(String title, String body) {
+    AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
+      if (!isAllowed) {
+        AwesomeNotifications().requestPermissionToSendNotifications();
+      }
+    });
+
+    AwesomeNotifications().createNotification(
+      content: NotificationContent(
+        id: 1,
+        channelKey: 'alemeno',
+        title: title,
+        body: body,
+      ),
+    );
+  }
+
+  void reset() {
+    cartList.clear();
+    date.value = '';
+    time.value = '';
+    hardCopy.value = false;
+    calendarIndex.value = 20;
+    currentday.value = DateTime.now();
+    focusday.value = DateTime.now();
   }
 }

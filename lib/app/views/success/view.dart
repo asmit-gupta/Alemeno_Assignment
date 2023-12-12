@@ -1,4 +1,4 @@
-import 'package:alemeno_app/app/views/home/view.dart';
+import 'package:alemeno_app/app/controller/main_controller.dart';
 import 'package:alemeno_app/app/views/success/widget/success_card.dart';
 import 'package:alemeno_app/app/views/widgets/button.dart';
 import 'package:alemeno_app/core/extensions/responsive.dart';
@@ -7,7 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SuccessPage extends StatelessWidget {
-  const SuccessPage({super.key});
+  final controller = Get.find<LabTestController>();
+  SuccessPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -58,16 +59,18 @@ class SuccessPage extends StatelessWidget {
               height: 7.0.hp,
               width: 90.0.wp,
               onTap: () {
-                Get.offAll(() => HomePage());
+                controller.reset();
+                Navigator.of(context)
+                    .pushNamedAndRemoveUntil('home', (route) => false);
               },
             ),
           ),
         ),
       ),
-      body: const Center(
+      body: Center(
         child: SuccessCard(
-          date: '11 Oct 2023',
-          time: '9 AM',
+          date: controller.date.value,
+          time: controller.time.value,
         ),
       ),
     );

@@ -46,15 +46,25 @@ class TestReviewCard extends StatelessWidget {
               ),
             ),
             Obx(
-              () => ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: cartController.cartList.length,
-                itemBuilder: (context, index) {
-                  final labTest = cartController.cartList[index];
-                  return TestItem(labTest: labTest);
-                },
-              ),
+              () => cartController.cartList.length > 0
+                  ? ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: cartController.cartList.length,
+                      itemBuilder: (context, index) {
+                        final labTest = cartController.cartList[index];
+                        return TestItem(labTest: labTest);
+                      },
+                    )
+                  : UnconstrainedBox(
+                      child: SizedBox(
+                        height: 10.0.wp,
+                        width: 50.0.wp,
+                        child: const Center(
+                          child: Text('Your cart is empty'),
+                        ),
+                      ),
+                    ),
             ),
           ],
         ),

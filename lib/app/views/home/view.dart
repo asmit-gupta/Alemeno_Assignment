@@ -71,7 +71,13 @@ class HomePage extends StatelessWidget {
                     ),
                     child: IconButton(
                       onPressed: () {
-                        Get.to(() => CartPage());
+                        Get.snackbar(
+                          'Cart empty',
+                          'Please add something to your cart first',
+                          snackPosition: SnackPosition.BOTTOM,
+                          colorText: Colors.white,
+                          backgroundColor: lightBlue,
+                        );
                       },
                       icon: const Icon(
                         Icons.shopping_cart,
