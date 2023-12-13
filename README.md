@@ -12,6 +12,6 @@ here are all the required details: [click here to know more](https://drive.googl
 
 download app from here: [download app](https://drive.google.com/file/d/1i8ug9-b8XXHP8UwkOd8IYc4y166DUkMb/view?usp=sharing)
 
-Screenshot:
+Screenshot and screen recording are available in link above
 
 
