@@ -37,5 +37,11 @@ class MyApp extends StatelessWidget {
 /*
 I have implemented some get snackbar in dummy buttons like when there is not product in the cart,
 when date is not selected, etc. only to show information. We could have left it totally non-functional too.
-Notifications are also shown after the checkout for the purchase.
+
+  ✔ Responsive Design
+  ✔ Clean Architecture Implementation: I have used MVC Architecture along with GetX/
+  ✔ DRY Implemented: made many reusable components(stateless widgets) and used them throughout, reducing 
+  complexity of the app.
+  ✔ Notifications are also shown after the checkout for the purchase.
+  ✔ developed same user interface as shown in the figma file.
 */
